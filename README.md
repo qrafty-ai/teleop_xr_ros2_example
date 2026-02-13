@@ -37,7 +37,7 @@ pixi run demo
 ```
 
 Once running:
-1. Open the URL printed by the `teleop_xr` node (default: `https://<your-ip>:4453`) in your VR/AR headset.
+1. Open the URL printed by the `teleop_xr` node (default: `https://<your-ip>:4443`) in your VR/AR headset.
 2. Enter VR mode.
 3. Use the controllers to command the robot.
 
