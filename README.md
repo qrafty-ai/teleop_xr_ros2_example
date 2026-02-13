@@ -1,62 +1,55 @@
-# Modern ROS2 Workspace Template
+# Teleop XR ROS 2 Example
 
-This repository provides a modern template for ROS2 Humble development using [Pixi](https://pixi.sh/) for environment management and [UV](https://docs.astral.sh/uv/) for Python package management.
+This repository demonstrates a modern ROS 2 Humble workspace integrated with `teleop_xr` for intuitive robot teleoperation using WebXR.
+
+![Teleop XR Demo](./src/teleop_xr_ros2_example/demo.gif)
 
 ## Features
-- **Pixi**: Manages ROS2 Humble, system dependencies, and Python version.
-- **UV**: Fast Python package management within the Pixi-provided environment.
-- **Direnv**: Automatic activation of both Pixi and UV environments.
-- **Pre-configured**: Includes a starter ROS2 package and common tasks.
+
+- **Pixi & UV**: Seamless environment management for ROS 2 and Python.
+- **IK-based Teleoperation**: Uses `teleop_xr` with a high-performance IK solver for Franka Panda.
+- **Real-time Visualization**: Synced robot state visualization in both RViz and the XR headset.
+- **Mock Hardware**: Includes a mock camera publisher and robot components for running without a physical robot.
 
 ## Prerequisites
-- Install [Pixi](https://pixi.sh/latest/#installation)
-- Install [UV](https://docs.astral.sh/uv/getting-started/installation/)
-- (Optional) Install [Direnv](https://direnv.net/) for automatic environment activation.
+
+- Install [Pixi](https://pixi.sh/)
+- Install [UV](https://docs.astral.sh/uv/)
 
 ## Getting Started
 
-### 1. Initialize the Environment
-Run the setup script to install all dependencies and create the Python virtual environment:
+### 1. Setup the Environment
+Initialize the Pixi environment and Python virtual environment:
 ```bash
 pixi run setup
 ```
-This script will:
-1. Install ROS2 and other dependencies via Pixi.
-2. Create a UV virtual environment using Pixi's Python.
-3. Sync Python dependencies.
 
-### 2. Activate the Environment
-If you have `direnv` installed:
-```bash
-direnv allow
-```
-Otherwise, source the `.envrc` manually:
-```bash
-source .envrc
-```
-
-### 3. Build the Workspace
-Build the included starter package:
+### 2. Build the Workspace
+Build the ROS 2 packages:
 ```bash
 pixi run build
 ```
 
-### 4. Run the Starter Node
+### 3. Run the Demo
+Launch the full simulation stack (MoveIt 2 + Teleop XR + RViz):
 ```bash
-# Source the install directory (if not using direnv)
-source install/setup.bash
-
-# Run the node
-ros2 run starter_package hello_node
+pixi run demo
 ```
 
-## Adding Dependencies
-- **System/ROS packages**: Use `pixi add <package_name>`
-- **Python packages**: Use `uv add <package_name>`
+Once running:
+1. Open the URL printed by the `teleop_xr` node (default: `https://<your-ip>:4453`) in your VR/AR headset.
+2. Enter VR mode.
+3. Use the controllers to command the robot.
 
 ## Project Structure
-- `src/`: ROS2 packages.
-- `scripts/`: Useful scripts (setup, etc.).
-- `pixi.toml`: Pixi configuration and tasks.
-- `pyproject.toml`: UV/Python configuration.
-- `.envrc`: Environment activation script.
+
+- `src/teleop_xr_ros2_example/`: Main ROS 2 package.
+  - `launch/demo.launch.py`: Main entry point.
+  - `config/`: MoveIt and controller configurations.
+- `pixi.toml`: Workspace configuration and task definitions.
+- `scripts/setup.sh`: Environment initialization script.
+
+## Acknowledgments
+
+- [teleop_xr](https://github.com/qrafty-ai/teleop_xr): Core teleoperation library.
+- [pyroki](https://github.com/qrafty-ai/pyroki): Differentiable IK solver.
